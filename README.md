@@ -29,20 +29,23 @@
 
 ## 仓库文件
 
-- `SKILL.md` 包含主要 skill 指令。
-- `MISSION-FORMAT.md` 定义 `MISSION.md` 的格式。
-- `OUTLINE-FORMAT.md` 定义 `OUTLINE.md` 的格式。
-- `RESOURCES-FORMAT.md` 定义 `RESOURCES.md` 的格式。
-- `LEARNING-RECORD-FORMAT.md` 定义学习记录的格式。
-- `QUIZ-FORMAT.md` 定义 quiz 的格式。
+- `README.md` 是面向人类读者的项目说明。
+- `teach/` 是真正的 skill 目录，安装时只需要复制这个目录。
+- `teach/SKILL.md` 包含主要 skill 指令。
+- `teach/MISSION-FORMAT.md` 定义 `MISSION.md` 的格式。
+- `teach/OUTLINE-FORMAT.md` 定义 `OUTLINE.md` 的格式。
+- `teach/RESOURCES-FORMAT.md` 定义 `RESOURCES.md` 的格式。
+- `teach/LEARNING-RECORD-FORMAT.md` 定义学习记录的格式。
+- `teach/QUIZ-FORMAT.md` 定义 quiz 的格式。
 
 ## 安装
 
-将这个仓库 clone 或复制到你的 Codex skills 目录：
+将这个仓库 clone 到本地，然后只把 `teach/` 子目录复制到你的 Codex skills 目录：
 
 ```bash
+git clone https://github.com/yqx104/teach-skill.git
 mkdir -p ~/.agents/skills
-git clone https://github.com/yqx104/teach-skill.git ~/.agents/skills/teach
+cp -R teach-skill/teach ~/.agents/skills/teach
 ```
 
 如果你本地已经有 `teach` skill，请先备份或移除旧目录，再执行 clone。
