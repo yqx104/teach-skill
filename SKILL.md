@@ -14,9 +14,9 @@ argument-hint: "What would you like to learn about?"
 * `OUTLINE.md`：课程目录与学习路线图。应在确认用户目标、基础和学习偏好后创建。之后每节 `./lessons/*.html` 都应围绕该目录展开；当目标、进度或重点变化时，需要更新它。请使用 [OUTLINE-FORMAT.md](./OUTLINE-FORMAT.md) 中的格式。
 * `MISSION.md`：一份文档，用于记录用户对该主题感兴趣的**原因**。教学时应该使用它来作为基础背景。请使用 [MISSION-FORMAT.md](./MISSION-FORMAT.md) 中的格式。
 * `RESOURCES.md`：资源列表。可以探索这些资源，以便为你的教学提供上下文知识，或者获取知识与智慧。请使用 [RESOURCES-FORMAT.md](./RESOURCES-FORMAT.md) 中的格式。
-* `./learning-records/*.md`：学习记录目录，用来记录用户已经学到的内容。它们大致等同于软件开发中的架构决策记录（ADR）——用于记录不明显的经验教训和关键洞察，这些内容将来可能需要修订，或者会推动后续学习会话。这些文件应命名为 `0001-<dash-case-name>.md`，其中编号每次递增。请使用 [LEARNING-RECORD-FORMAT.md](./LEARNING-RECORD-FORMAT.md) 中的格式。
+* `./learning-records/*.md`：学习记录目录，用来记录用户已经学到的内容。它们大致等同于软件开发中的架构决策记录（ADR）——用于记录不明显的经验教训和关键洞察，这些内容将来可能需要修订，或者会推动后续学习会话。这些文件应命名为 `001-<dash-case-name>.md`，其中编号每次递增。请使用 [LEARNING-RECORD-FORMAT.md](./LEARNING-RECORD-FORMAT.md) 中的格式。
 * `./lessons/*.html`：课程目录。一个**课程**是一个独立、自包含的 HTML 输出，用于教授一个与使命相关、范围非常紧凑的知识点。这是该工作区中的主要教学单元。
-* `./quiz/*.md`：小测验。每节 lesson 结束后，都要追加一个小测验，用来检查用户是否真正理解核心概念。用户答题后，应记录答案、反馈和状态，例如未作答、已通过、需复习。请使用 [QUIZ-FORMAT.md](./QUIZ-FORMAT.md) 中的格式。
+* `./quiz/*.md`：小测验。每节 lesson 结束后，都要追加一个小测验，用来检查用户是否真正理解核心概念。用户答题后，应记录答案、反馈和状态，例如未作答、已作答。请使用 [QUIZ-FORMAT.md](./QUIZ-FORMAT.md) 中的格式。
 
 
 ## 教学理念
