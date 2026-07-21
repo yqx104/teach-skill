@@ -1,75 +1,74 @@
-# Teach Skill
+# Teach Skills
 
-`teach` 是一个 Codex skill，用于把当前工作区变成一个有状态的学习环境。
+这套 skills 把当前工作区变成一个有状态的学习环境，并根据用户目标选择两种独立课程模式：
 
-它不是为一次性问答设计的，而是帮助用户在多个会话中持续学习一个主题。它会记录学习使命、学习路线、可信资源、课程、小测验和学习记录，让后续教学能接着之前的上下文继续推进。
+- **速成版**：围绕近期交付物建立最短可靠路径。
+- **体系版**：围绕长期掌握建立完整能力地图和前置依赖。
 
-## 它做什么
+“速成”只缩小范围，不降低讲解完整性；“体系”追求目标范围内完整，不做无边界扩张。
 
-这个 skill 会引导 Codex 通过一组持久化文件进行教学：
+## 三个 skills
 
-- `MISSION.md` 记录用户为什么想学习这个主题。
-- `OUTLINE.md` 定义学习路线图和课程顺序。
-- `RESOURCES.md` 收集后续课程应依赖的可信来源。
-- `lessons/*.html` 保存聚焦、独立、可复习的课程。
-- `quiz/*.md` 保存用户完成并讨论课程后生成的小测验。
-- `learning-records/*.md` 记录已经确认的理解、被纠正的误解，以及重要学习节点。
-- `NOTES.md` 记录用户关于教学方式的偏好。
+- `teach`：入口路由器。使用 `grilling` 逐题确认目标、当前基础、约束和成功标准，推荐并记录课程模式。
+- `teach-fast`：只负责速成版目录、lesson、quiz 和学习进度。
+- `teach-systematic`：只负责体系版能力地图、目录、lesson、quiz 和学习进度。
 
-目标是让学习能够累积。每节课都应该基于用户的真实使命、已有进度和当前最近发展区来设计。
+首次确认后，工作区中的 `COURSE-CONFIG.md` 成为模式的唯一事实来源。后续教学自动进入对应执行 skill，不再反复询问用户选择速成版还是体系版。
 
-## 设计原则
+## 工作区文件
 
-- 从用户的真实世界使命出发，而不是从抽象主题出发。
-- 优先使用高质量外部资源，而不是依赖模型记忆。
-- 每节课保持足够小，让用户能快速完成。
-- 在合适的地方使用提取练习、间隔学习和交错练习。
-- 记录真正影响后续教学的学习进展，而不是写活动流水账。
-- 只有在用户学习并讨论完课程后，才生成 quiz。
-
-## 仓库文件
-
-- `README.md` 是面向人类读者的项目说明。
-- `teach/` 是真正的 skill 目录，安装时只需要复制这个目录。
-- `teach/SKILL.md` 包含主要 skill 指令。
-- `teach/MISSION-FORMAT.md` 定义 `MISSION.md` 的格式。
-- `teach/OUTLINE-FORMAT.md` 定义 `OUTLINE.md` 的格式。
-- `teach/RESOURCES-FORMAT.md` 定义 `RESOURCES.md` 的格式。
-- `teach/LEARNING-RECORD-FORMAT.md` 定义学习记录的格式。
-- `teach/QUIZ-FORMAT.md` 定义 quiz 的格式。
+- `COURSE-CONFIG.md`：模式、状态、节奏和路由依据。
+- `MISSION.md`：为什么学习、成功的样子和范围边界。
+- `LEARNER-PROFILE.md`：已掌握、部分掌握、未知、误解、环境和教学偏好，并记录证据。
+- `OUTLINE.md`：当前模式的课程目录。
+- `RESOURCES.md`：课程依赖的高可信来源及覆盖范围。
+- `lessons/*.html`：自包含课程。
+- `quiz/*.md`：用户学完并明确表示准备好后生成的测验。
+- `learning-records/*.md`：会影响后续教学的重要能力证据和认知变化。
+- `NOTES.md`：其他教学偏好。
 
 ## 安装
 
-将这个仓库 clone 到本地，然后只把 `teach/` 子目录复制到你的 Codex skills 目录：
+将三个 skill 目录都复制到 skills 目录：
+
+如果已经安装旧版 `teach`，先把旧目录移到工作区外备份，确保下面三个目标目录不存在。这样不会残留旧版格式文件。
 
 ```bash
 git clone https://github.com/yqx104/teach-skill.git
 mkdir -p ~/.agents/skills
 cp -R teach-skill/teach ~/.agents/skills/teach
+cp -R teach-skill/teach-fast ~/.agents/skills/teach-fast
+cp -R teach-skill/teach-systematic ~/.agents/skills/teach-systematic
 ```
 
-如果你本地已经有 `teach` skill，请先备份或移除旧目录，再执行 clone。
+这套 skills 还需要本地安装名为 `grilling` 的 skill。入口和两个执行 skill 都使用它进行一次一题的目标访谈或课前 readiness check。
 
 ## 使用方式
 
-在你想学习的工作区里打开 Codex 会话，然后带着学习目标调用这个 skill，例如：
+从 `teach` 开始，不要直接从两个执行 skill 创建新课程：
 
 ```text
-使用 teach skill 教我学习 RAG，我想做出一个可运行的原型。
+使用 teach skill 教我 RAG。我想做一个能演示的项目，但还不确定该走速成还是体系路线。
 ```
 
-这个 skill 会先澄清你的学习使命、当前基础和约束条件。之后，它会创建或更新学习工作区文件，并一次只生成一节课程。
+首次流程：
 
-## 推荐工作流
+1. 检查工作区已有事实和学习记录。
+2. 一次只询问一个目标或能力问题。
+3. 推荐速成版或体系版，并解释理由。
+4. 用户确认后写入课程配置、使命和学习者画像。
+5. 路由到对应执行 skill 规划课程目录。
+6. 后续一次只生成一节 lesson。
+7. 用户学习并讨论后，明确说“可以考我了”才生成 quiz。
 
-1. 在 `MISSION.md` 中定义学习使命。
-2. 在 `OUTLINE.md` 中建立紧凑的学习路线图。
-3. 在 `RESOURCES.md` 中收集高质量来源。
-4. 每次只在 `lessons/` 中生成一节聚焦课程。
-5. 和 Codex 讨论这节课。
-6. 准备好后再请求 quiz。
-7. 在 `learning-records/` 中记录有意义的学习进展。
+## 模式切换
 
-## 说明
+模式不会静默切换。用户改变目标时，`teach` 会重新访谈、说明影响、等待确认、归档旧目录，并保留已有 lesson、quiz 和学习记录。
 
-这个 skill 有意保持轻量。它不试图成为完整的学习管理系统，而是让 Codex 在持续教学时始终围绕用户的目标、证据和进展来生成有用的课程。
+## 仓库结构
+
+```text
+teach/               入口、访谈协议和状态文件格式
+teach-fast/          速成版课程规则和模板
+teach-systematic/    体系版课程规则和模板
+```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Teach Systematic"
+  short_description: "Build complete dependency-aware learning curricula"
+  default_prompt: "Use $teach-systematic to continue my confirmed systematic course."

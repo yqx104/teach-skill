@@ -1,0 +1,56 @@
+# `COURSE-CONFIG.md` 格式
+
+`COURSE-CONFIG.md` 位于教学工作区根目录，是模式和路由的唯一事实来源。
+
+```md
+---
+schema: teach/v2
+mode: fast | systematic
+mode_status: confirmed
+course_status: planning | active | completed
+topic: {主题}
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+
+# 课程配置
+
+## 目标成果
+
+{用户完成课程后要做出、交付或独立完成的具体结果。}
+
+## 模式选择
+
+- 当前模式：{速成版 | 体系版}
+- 选择原因：{该模式为什么最符合目标、时间和深度要求}
+- 用户确认：是
+
+## 时间与节奏
+
+- 截止时间：{日期或无明确截止时间}
+- 总时间预算：{估计}
+- 每周投入：{估计}
+- 单节课期望时长：{估计}
+
+## 深度与范围
+
+- 必须掌握：{列表}
+- 可以延后：{列表}
+- 不在范围内：{列表}
+
+## 成功标准
+
+- {可观察、可验证的标准}
+
+## 待确认
+
+- {尚未确认但不妨碍当前模式选择的信息；没有则写“无”}
+```
+
+## 规则
+
+- `mode` 只能是 `fast` 或 `systematic`。
+- 只有用户明确确认后才能写 `mode_status: confirmed`。
+- 子 skill 不得静默改变 mode。
+- `OUTLINE.md` 可以展示模式，但冲突时以本文件为准。
+- 目标、模式或范围实质变化时更新 `updated`，并记录变化原因。
